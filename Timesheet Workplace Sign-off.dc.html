@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#F4F2EC;font-family:"Lato","SF Pro",-apple-system,BlinkMacSystemFont,"Helvetica Neue",sans-serif;color:#210E10;}
+a{color:#37171A}a:hover{color:#210E10}
+input::placeholder{color:#210E1099;opacity:1}
+</style>
+</helmet>
+<div style="display:flex;flex-direction:column;align-items:center;gap:20px;padding:24px 16px 32px;min-height:100vh;box-sizing:border-box;">
+<div role="tablist" aria-label="Prototype screen" style="display:inline-flex;gap:4px;padding:4px;border-radius:100px;background:#FFFEFC;border:1px solid #ECE7DC;">
+  <sc-for list="{{ screenTabs }}" as="tab" hint-placeholder-count="2">
+    <button role="tab" aria-selected="{{ tab.selected }}" onClick="{{ tab.onSelect }}" style="height:40px;padding:0 20px;border:none;border-radius:100px;font-family:inherit;font-size:14px;line-height:18px;font-weight:600;cursor:pointer;transition:background-color 120ms ease-out;background: {{ tab.bg }};color: {{ tab.fg }};">{{ tab.label }}</button>
+  </sc-for>
+</div>
+<x-import component-from-global-scope="IOSDevice" from="./ios-frame.jsx" hint-size="393px,852px">
+<div data-screen-label="Workplace clock-out" style="display:flex;flex-direction:column;height:100%;background:#FFFFFF;color:#210E10;font-family:'Lato','SF Pro',-apple-system,sans-serif;">
+<sc-if value="{{ isSignature }}" hint-placeholder-val="{{ true }}">
+
+  <div style="display:flex;align-items:center;gap:8px;padding:62px 12px 12px;background:#FFFFFF;flex-shrink:0;">
+    <div style="width:40px;height:40px;border-radius:100px;display:flex;align-items:center;justify-content:center;color:#210E10;">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"></path></svg>
+    </div>
+    <div style="font-size:20px;line-height:24px;font-weight:700;letter-spacing:-0.2px;">{{ pageTitle }}</div>
+  </div>
+
+  <div style="flex:1;min-height:0;overflow-y:auto;">
+    <div style="display:flex;flex-direction:column;gap:20px;padding:0 20px 20px;">
+      <div style="font-size:16px;line-height:20px;color:#210E10B3;">Make sure the times are correct and make any edits before getting it signed.</div>
+
+      <div style="display:flex;flex-direction:column;gap:12px;">
+        <div style="display:flex;align-items:center;gap:8px;">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#210E10" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+          <div style="flex:1;min-width:0;font-size:16px;line-height:20px;font-weight:700;">Clock in</div>
+          <button style="display:flex;align-items:center;gap:8px;height:40px;padding:8px 20px;border:none;border-radius:100px;background:#FFFFFF;box-shadow:inset 0 0 0 1px #210E1033;font-family:inherit;font-size:14px;line-height:18px;font-weight:600;color:#210E10;cursor:pointer;" style-hover="box-shadow:inset 0 0 0 1px #210E1066;">{{ clockIn }}<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"></path></svg></button>
+        </div>
+        <div style="display:flex;align-items:center;gap:8px;">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#210E10" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 2v2"></path><path d="M14 2v2"></path><path d="M16 8a1 1 0 0 1 1 1v8a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4V9a1 1 0 0 1 1-1h14a4 4 0 1 1 0 8h-1"></path><path d="M6 2v2"></path></svg>
+          <div style="flex:1;min-width:0;font-size:16px;line-height:20px;font-weight:700;">Break</div>
+          <button style="display:flex;align-items:center;gap:8px;height:40px;padding:8px 20px;border:none;border-radius:100px;background:#FFFFFF;box-shadow:inset 0 0 0 1px #210E1033;font-family:inherit;font-size:14px;line-height:18px;font-weight:600;color:#210E10;cursor:pointer;" style-hover="box-shadow:inset 0 0 0 1px #210E1066;">{{ breakText }}<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"></path></svg></button>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:6px;">
+          <div style="display:flex;align-items:center;gap:8px;">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#210E10" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+            <div style="flex:1;min-width:0;display:flex;flex-direction:column;">
+              <div style="font-size:16px;line-height:20px;font-weight:700;">{{ clockOutLabel }}</div>
+              <sc-if value="{{ showAdjusted }}" hint-placeholder-val="{{ false }}">
+                <div style="display:flex;align-items:center;gap:4px;font-size:14px;line-height:18px;"><span style="color:#210E1099;">Original clock out</span><span>{{ originalClockOut }}</span></div>
+              </sc-if>
+            </div>
+            <button style="display:flex;align-items:center;gap:8px;height:40px;padding:8px 20px;border:none;border-radius:100px;background:#FFFFFF;box-shadow:inset 0 0 0 1px #210E1033;font-family:inherit;font-size:14px;line-height:18px;font-weight:600;color:#210E10;cursor:pointer;" style-hover="box-shadow:inset 0 0 0 1px #210E1066;">{{ clockOut }}<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"></path></svg></button>
+          </div>
+          <sc-if value="{{ showAdjusted }}" hint-placeholder-val="{{ false }}">
+            <div style="display:flex;align-items:flex-start;gap:8px;padding:8px 12px;border-radius:100px;background:#FFE8D7;color:#904A19;font-size:12px;line-height:14px;letter-spacing:0.24px;">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:0;"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3"></path><path d="M12 9v4"></path><path d="M12 17h.01"></path></svg>
+              <span>Your shift time was adjusted to the scheduled shift end time. You may request a pay adjustment later in your Shift History.</span>
+            </div>
+          </sc-if>
+        </div>
+        <div style="height:1px;background:#F4F2EC;"></div>
+        <div style="display:flex;justify-content:space-between;align-items:center;">
+          <div style="font-size:20px;line-height:24px;font-weight:700;letter-spacing:-0.2px;color:#210E1099;">Total</div>
+          <div style="font-size:20px;line-height:24px;font-weight:700;letter-spacing:-0.2px;color:#249A34;">{{ totalText }}</div>
+        </div>
+      </div>
+    </div>
+
+    <div style="display:flex;flex-direction:column;gap:16px;padding:20px;background:#F6F5F3;">
+      <h2 style="margin:0;font-size:18px;line-height:20px;font-weight:700;letter-spacing:-0.18px;">Please ask a workplace employee to verify your times and sign</h2>
+
+      <div style="display:flex;flex-direction:column;gap:6px;">
+        <label for="employeeName" style="font-size:14px;line-height:18px;">Workplace employee name*</label>
+        <input id="employeeName" type="text" placeholder="Name" value="{{ employeeName }}" onChange="{{ onNameChange }}" style="box-sizing:border-box;width:100%;height:48px;padding:16px;border:1px solid #210E1033;border-radius:16px;background:#FFFFFF;font-family:inherit;font-size:14px;color:#210E10;outline:none;" style-focus="border-color:#210E10;box-shadow:0px 4px 24px 0px rgba(0,0,0,0.04);">
+      </div>
+
+      <div style="display:flex;flex-direction:column;gap:6px;">
+        <label for="employeePhone" style="font-size:14px;line-height:18px;">Workplace employee cell phone number*</label>
+        <input id="employeePhone" type="tel" inputmode="tel" placeholder="(555) 555-5555" value="{{ employeePhone }}" onChange="{{ onPhoneChange }}" style="box-sizing:border-box;width:100%;height:48px;padding:16px;border:1px solid #210E1033;border-radius:16px;background:#FFFFFF;font-family:inherit;font-size:14px;color:#210E10;outline:none;" style-focus="border-color:#210E10;box-shadow:0px 4px 24px 0px rgba(0,0,0,0.04);">
+      </div>
+
+      <sc-if value="{{ isCalifornia }}" hint-placeholder-val="{{ false }}">
+        <div style="display:flex;flex-direction:column;gap:6px;">
+          <label for="station" style="font-size:14px;line-height:18px;">{{ firstName }}'s Station/Wing/Unit/Floor*</label>
+          <input id="station" type="text" placeholder="e.g. 2nd floor" value="{{ station }}" onChange="{{ onStationChange }}" style="box-sizing:border-box;width:100%;height:48px;padding:16px;border:1px solid #210E1033;border-radius:16px;background:#FFFFFF;font-family:inherit;font-size:14px;color:#210E10;outline:none;" style-focus="border-color:#210E10;">
+        </div>
+        <div style="display:flex;flex-direction:column;gap:6px;">
+          <label for="assignment" style="font-size:14px;line-height:18px;">{{ firstName }}'s nursing services assignment*</label>
+          <input id="assignment" type="text" placeholder="e.g. Acute care" value="{{ assignment }}" onChange="{{ onAssignmentChange }}" style="box-sizing:border-box;width:100%;height:48px;padding:16px;border:1px solid #210E1033;border-radius:16px;background:#FFFFFF;font-family:inherit;font-size:14px;color:#210E10;outline:none;" style-focus="border-color:#210E10;">
+        </div>
+      </sc-if>
+
+      <div style="display:flex;flex-direction:column;gap:6px;">
+        <div style="font-size:14px;line-height:18px;">Workplace employee signature*</div>
+        <div style="display:flex;flex-direction:column;padding:16px;border:1px solid #210E1033;border-radius:24px;background:#FFFFFF;">
+          <div aria-label="Workplace employee signature" style="position:relative;height:180px;touch-action:none;">
+            <canvas ref="{{ padRef }}" onPointerDown="{{ onPadDown }}" onPointerMove="{{ onPadMove }}" onPointerUp="{{ onPadUp }}" onPointerLeave="{{ onPadUp }}" style="display:block;width:100%;height:180px;cursor:crosshair;"></canvas>
+            <sc-if value="{{ padEmpty }}" hint-placeholder-val="{{ true }}">
+              <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;pointer-events:none;font-size:14px;color:#210E1099;">Sign here</div>
+            </sc-if>
+          </div>
+          <div style="height:1px;background:#210E1033;margin:0 0 12px;"></div>
+          <div style="display:flex;justify-content:flex-end;">
+            <button onClick="{{ clearSignature }}" style="border:none;background:none;padding:0;font-family:inherit;font-size:16px;line-height:20px;font-weight:600;color:#37171A;cursor:pointer;">Clear</button>
+          </div>
+        </div>
+      </div>
+
+      <button disabled="{{ submitDisabled }}" onClick="{{ onSubmit }}" style="margin:20px 0;width:100%;height:64px;padding:20px 24px;border:none;border-radius:100px;background:#F8F831;box-shadow:inset 0 0 0 2px #37171A;font-family:inherit;font-size:16px;line-height:20px;font-weight:600;color:#210E10;cursor:pointer;transition:background-color 120ms ease-out;" style-hover="background:#FFFF80;" style-disabled="background:#e0e0e0;color:#9e9e9e;box-shadow:none;cursor:default;">{{ submitLabel }}</button>
+    </div>
+  </div>
+
+  <sc-if value="{{ submitted }}" hint-placeholder-val="{{ false }}">
+    <div style="position:absolute;inset:0;background:#210E1080;display:flex;align-items:flex-end;">
+      <div style="width:100%;box-sizing:border-box;padding:24px 20px 40px;border-radius:32px 32px 0 0;background:#FFFFFF;display:flex;flex-direction:column;gap:16px;">
+        <div style="font-size:24px;line-height:29px;font-weight:700;letter-spacing:-0.24px;">Timesheet signed</div>
+        <div style="font-size:16px;line-height:20px;color:#210E10B3;">Please pass the phone back to {{ firstName }}.</div>
+        <button onClick="{{ onContinue }}" style="width:100%;height:64px;border:none;border-radius:100px;background:#210E10;color:#FFFFFF;font-family:inherit;font-size:16px;font-weight:600;cursor:pointer;" style-hover="background:#000000;">Continue</button>
+      </div>
+    </div>
+  </sc-if>
+</sc-if>
+
+<sc-if value="{{ isRating }}" hint-placeholder-val="{{ false }}">
+  <div data-screen-label="Rate professional" style="display:flex;flex-direction:column;height:100%;background:#F8F4EA;">
+    <div style="flex-shrink:0;display:flex;align-items:center;justify-content:space-between;padding:58px 20px 12px;background:#F8F4EA;">
+      <img src="assets/clipboard-wordmark.png" alt="Clipboard" style="height:22px;width:auto;display:block;">
+      <button aria-label="Close" style="width:40px;height:40px;border-radius:100px;border:1px solid #ECE7DC;background:#FFFEFC;display:flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0;color:#210E10;" style-hover="background:#F4F2EC;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 6 6 18"></path><path d="m6 6 12 12"></path></svg></button>
+    </div>
+    <div style="flex:1;min-height:0;overflow-y:auto;display:flex;flex-direction:column;gap:24px;padding:8px 20px 20px;">
+      <div style="display:flex;align-items:flex-start;gap:16px;">
+        <div style="width:64px;height:64px;border-radius:100px;background:#CA3051;display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:700;color:#FFFFFF;flex-shrink:0;">{{ reviewee.initials }}</div>
+        <div style="flex:1;min-width:0;display:flex;flex-direction:column;gap:10px;">
+          <div style="font-size:24px;line-height:29px;font-weight:700;letter-spacing:-0.24px;">How did {{ reviewee.name }} do?</div>
+          <div style="display:flex;flex-wrap:wrap;gap:6px;">
+            <span style="padding:6px 10px;border-radius:100px;background:#FAFA64;color:#210E10;font-size:12px;line-height:14px;letter-spacing:0.24px;">{{ reviewee.role }}</span>
+            <span style="padding:6px 10px;border-radius:100px;background:#FFFEFC;border:1px solid #ECE7DC;font-size:12px;line-height:14px;letter-spacing:0.24px;">{{ reviewee.shifts }} Shifts worked</span>
+            <span style="padding:6px 10px;border-radius:100px;background:#FFFEFC;border:1px solid #ECE7DC;font-size:12px;line-height:14px;letter-spacing:0.24px;">Last Shift: {{ reviewee.last }}</span>
+          </div>
+        </div>
+      </div>
+      <div style="height:1px;background:#ECE7DC;"></div>
+
+      <div style="display:flex;flex-direction:column;gap:6px;">
+        <h2 style="margin:0;font-size:18px;line-height:20px;font-weight:700;letter-spacing:-0.18px;">Rate their overall performance</h2>
+        <div style="font-size:14px;line-height:18px;color:#210E10B3;">Reviews help us match you with professionals you like. Reviews are anonymous.</div>
+      </div>
+
+      <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;">
+        <div style="font-size:16px;line-height:20px;font-weight:700;">How did it go?</div>
+        <div style="display:flex;gap:4px;">
+          <sc-for list="{{ stars }}" as="star" hint-placeholder-count="5">
+            <button aria-label="{{ star.label }}" onClick="{{ star.onSelect }}" style="width:44px;height:44px;border:none;background:none;padding:0;cursor:pointer;display:flex;align-items:center;justify-content:center;color: {{ star.color }};"><svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor"><path d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z"></path></svg></button>
+          </sc-for>
+        </div>
+      </div>
+
+      <div style="display:flex;flex-direction:column;gap:12px;">
+        <div style="font-size:16px;line-height:20px;font-weight:700;">What went well?</div>
+        <div style="display:flex;flex-wrap:wrap;gap:8px;">
+          <sc-for list="{{ wellChips }}" as="chip" hint-placeholder-count="7">
+            <button onClick="{{ chip.onToggle }}" style="height:40px;padding:8px 16px;border:none;border-radius:100px;font-family:inherit;font-size:14px;line-height:18px;font-weight:600;cursor:pointer;transition:background-color 120ms ease-out;background: {{ chip.bg }};color: {{ chip.fg }};box-shadow: {{ chip.ring }};">{{ chip.label }}</button>
+          </sc-for>
+        </div>
+      </div>
+
+      <div style="display:flex;flex-direction:column;gap:12px;padding-bottom:12px;">
+        <div style="font-size:16px;line-height:20px;font-weight:700;">What could be improved?</div>
+        <div style="display:flex;flex-wrap:wrap;gap:8px;">
+          <sc-for list="{{ improveChips }}" as="chip" hint-placeholder-count="7">
+            <button onClick="{{ chip.onToggle }}" style="height:40px;padding:8px 16px;border:none;border-radius:100px;font-family:inherit;font-size:14px;line-height:18px;font-weight:600;cursor:pointer;transition:background-color 120ms ease-out;background: {{ chip.bg }};color: {{ chip.fg }};box-shadow: {{ chip.ring }};">{{ chip.label }}</button>
+          </sc-for>
+        </div>
+      </div>
+    </div>
+
+    <div style="flex-shrink:0;display:flex;padding:16px 20px 12px;border-top:1px solid #ECE7DC;background:#F8F4EA;">
+      <button disabled="{{ nextDisabled }}" onClick="{{ onNext }}" style="display:flex;align-items:center;justify-content:center;gap:8px;width:100%;height:56px;padding:16px 24px;border:none;border-radius:16px;background:#DA2451;font-family:inherit;font-size:16px;line-height:20px;font-weight:600;color:#FFFFFF;cursor:pointer;transition:background-color 120ms ease-out;" style-hover="background:#B81A41;" style-disabled="background:#ECE7DC;color:#7B645C;cursor:default;">{{ nextLabel }}<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"></path></svg></button>
+    </div>
+
+    <sc-if value="{{ reviewsDone }}" hint-placeholder-val="{{ false }}">
+      <div style="position:absolute;inset:0;background:#210E1080;display:flex;align-items:flex-end;">
+        <div style="width:100%;box-sizing:border-box;padding:24px 20px 40px;border-radius:32px 32px 0 0;background:#FFFFFF;display:flex;flex-direction:column;gap:16px;">
+          <div style="font-size:24px;line-height:29px;font-weight:700;letter-spacing:-0.24px;">Reviews sent</div>
+          <div style="font-size:16px;line-height:20px;color:#210E10B3;">Thanks. We'll use these to match you with professionals you like.</div>
+          <button onClick="{{ onRestartReviews }}" style="width:100%;height:56px;border:none;border-radius:16px;background:#DA2451;color:#FFFFFF;font-family:inherit;font-size:16px;font-weight:600;cursor:pointer;" style-hover="background:#B81A41;">Done</button>
+        </div>
+      </div>
+    </sc-if>
+  </div>
+</sc-if>
+</div>
+</x-import>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;variant&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;default&quot;:&quot;Timesheet signature&quot;,&quot;options&quot;:[&quot;Timesheet signature&quot;,&quot;Rate professionals&quot;],&quot;tsType&quot;:&quot;\&quot;Timesheet signature\&quot; | \&quot;Rate professionals\&quot;&quot;,&quot;section&quot;:&quot;Prototype&quot;},&quot;isCalifornia&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:false,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Timesheet signature&quot;},&quot;shiftVerified&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Timesheet signature&quot;},&quot;showAdjustedClockOut&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:false,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Timesheet signature&quot;},&quot;workerFirstName&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;Maria&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Timesheet signature&quot;}}">
+class Component extends DCLogic {
+  state = { name: "", phone: "", station: "", assignment: "", padEmpty: true, drawing: false, submitted: false,
+    reviewIndex: 0, rating: 0, well: [], improve: [], reviewsDone: false, screen: undefined };
+  screens = ["Timesheet signature", "Rate professionals"];
+  setScreen(screen) {
+    this.setState({ screen }, () => { if (screen === "Timesheet signature") requestAnimationFrame(() => this.initPad()); });
+  }
+  reviewees = [
+    { name: "Ethan Lee", initials: "EL", role: "Caregiver", shifts: 5, last: "12hrs ago" },
+    { name: "Maria Lopez", initials: "ML", role: "CNA", shifts: 12, last: "1 day ago" },
+    { name: "Priya Natarajan", initials: "PN", role: "LVN", shifts: 2, last: "3 days ago" },
+  ];
+  wellOptions = ["On Time", "Clinical Skills", "Resident Care", "Team Player", "Flexible", "Professional", "Other"];
+  improveOptions = ["Tardiness", "Unprofessional", "Clinical Skills", "Resident Care", "Charting", "Phone Use", "Other"];
+  chips(options, key) {
+    const sel = this.state[key];
+    return options.map((label) => {
+      const on = sel.includes(label);
+      return {
+        label,
+        bg: on ? "#DA2451" : "#FFFEFC",
+        fg: on ? "#FFFFFF" : "#210E10",
+        ring: on ? "none" : "inset 0 0 0 1px #ECE7DC",
+        onToggle: () => this.setState((s) => ({ [key]: on ? s[key].filter((l) => l !== label) : [...s[key], label] })),
+      };
+    });
+  }
+  componentDidUpdate(prevProps) {
+    if (prevProps.variant !== this.props.variant) this.setScreen(this.props.variant ?? "Timesheet signature");
+  }
+  initPad() {
+    const c = this.padRef.current; if (!c) return;
+    const dpr = window.devicePixelRatio || 1;
+    c.width = c.clientWidth * dpr; c.height = 180 * dpr;
+    const ctx = c.getContext("2d"); ctx.scale(dpr, dpr);
+    ctx.lineWidth = 2.2; ctx.lineCap = "round"; ctx.lineJoin = "round"; ctx.strokeStyle = "#210E10";
+    this.ctx = ctx;
+  }
+  padRef = React.createRef();
+  componentDidMount() { this.initPad(); }
+  pos(e) { const r = this.padRef.current.getBoundingClientRect(); return [e.clientX - r.left, e.clientY - r.top]; }
+  renderVals() {
+    const p = this.props;
+    const isCalifornia = p.isCalifornia ?? false;
+    const shiftVerified = p.shiftVerified ?? true;
+    const showAdjusted = p.showAdjustedClockOut ?? false;
+    const firstName = p.workerFirstName ?? "Maria";
+    const s = this.state;
+    const variant = s.screen ?? p.variant ?? "Timesheet signature";
+    const screenTabs = this.screens.map((label) => ({
+      label, selected: label === variant,
+      bg: label === variant ? "#210E10" : "transparent",
+      fg: label === variant ? "#FFFFFF" : "#7B645C",
+      onSelect: () => this.setScreen(label),
+    }));
+    const isRating = variant === "Rate professionals";
+    const total = this.reviewees.length;
+    const reviewee = this.reviewees[s.reviewIndex];
+    const stars = [1, 2, 3, 4, 5].map((n) => ({
+      label: `${n} star${n > 1 ? "s" : ""}`,
+      color: n <= s.rating ? "#DA2451" : "#ECE7DC",
+      onSelect: () => this.setState({ rating: n }),
+    }));
+    const formOk = s.name.trim().length > 0 && s.phone.replace(/\D/g, "").length >= 10 && !s.padEmpty && (!isCalifornia || (s.station.trim() && s.assignment.trim()));
+    return {
+      screenTabs, isSignature: !isRating, isRating,
+      reviewee, stars,
+      wellChips: this.chips(this.wellOptions, "well"),
+      improveChips: this.chips(this.improveOptions, "improve"),
+      reviewCounter: `${s.reviewIndex + 1}/${total}`,
+      nextLabel: s.reviewIndex + 1 === total ? "Send" : "Next",
+      nextDisabled: s.rating === 0,
+      onNext: () => this.setState((st) => st.reviewIndex + 1 === total
+        ? { reviewsDone: true }
+        : { reviewIndex: st.reviewIndex + 1, rating: 0, well: [], improve: [] }),
+      reviewsDone: s.reviewsDone,
+      onRestartReviews: () => this.setState({ reviewsDone: false, reviewIndex: 0, rating: 0, well: [], improve: [] }),
+      pageTitle: shiftVerified ? "Submit timesheet" : "Shift payment request",
+      firstName, isCalifornia, showAdjusted,
+      clockIn: "6:58 AM", breakText: "30 min", clockOut: showAdjusted ? "3:00 PM" : "3:04 PM",
+      originalClockOut: "3:41 PM",
+      clockOutLabel: showAdjusted ? "Adjusted clock out" : "Clock out",
+      totalText: showAdjusted ? "7h 32m" : "7h 36m",
+      employeeName: s.name, employeePhone: s.phone, station: s.station, assignment: s.assignment,
+      onNameChange: (e) => { this.clearSignature(); this.setState({ name: e.target.value }); },
+      onPhoneChange: (e) => { this.clearSignature(); this.setState({ phone: e.target.value }); },
+      onStationChange: (e) => { this.clearSignature(); this.setState({ station: e.target.value }); },
+      onAssignmentChange: (e) => { this.clearSignature(); this.setState({ assignment: e.target.value }); },
+      padRef: this.padRef, padEmpty: s.padEmpty,
+      onPadDown: (e) => { if (!this.ctx) return; e.currentTarget.setPointerCapture(e.pointerId); const [x, y] = this.pos(e); this.ctx.beginPath(); this.ctx.moveTo(x, y); this.setState({ drawing: true, padEmpty: false }); },
+      onPadMove: (e) => { if (!this.state.drawing || !this.ctx) return; const [x, y] = this.pos(e); this.ctx.lineTo(x, y); this.ctx.stroke(); },
+      onPadUp: () => { if (this.state.drawing) this.setState({ drawing: false }); },
+      clearSignature: () => this.clearSignature(),
+      submitDisabled: !formOk,
+      submitLabel: isCalifornia || shiftVerified ? "Submit" : "Request workplace verification",
+      onSubmit: () => this.setState({ submitted: true }),
+      submitted: s.submitted,
+      onContinue: () => { this.clearSignature(); this.setState({ submitted: false, name: "", phone: "", station: "", assignment: "" }); this.setScreen("Rate professionals"); },
+    };
+  }
+  clearSignature() {
+    const c = this.padRef.current; if (c && this.ctx) this.ctx.clearRect(0, 0, c.width, c.height);
+    if (!this.state.padEmpty) this.setState({ padEmpty: true });
+  }
+}
+</script>
+</body>
+</html>
